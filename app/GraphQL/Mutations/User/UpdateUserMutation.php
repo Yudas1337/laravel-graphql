@@ -1,10 +1,9 @@
 <?php
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\User;
 
 use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
 
@@ -19,6 +18,11 @@ class UpdateUserMutation extends Mutation
     public function args(): array
     {
         return [
+            'id' => [
+                'name' => 'id',
+                'type' => Type::nonNull(Type::int()),
+                'description' => 'The id of the user',
+            ],
             'name' => [
                 'name' => 'name',
                 'type' => Type::nonNull(Type::string()),
@@ -37,7 +41,7 @@ class UpdateUserMutation extends Mutation
         ];
     }
 
-    public function type(): GraphQLType
+    public function type(): Type
     {
         return GraphQL::type('User');
     }

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Category;
 
-use App\Models\User;
+use App\Models\Category;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
 use Rebing\GraphQL\Support\Mutation;
 
-class DeleteUserMutation extends Mutation
+class DeleteCategoryMutation extends Mutation
 {
     protected $attributes = [
-        'name' => 'deleteUser',
-        'description' => 'Delete a user',
+        'name' => 'deleteCategory',
+        'description' => 'Delete a category',
     ];
 
     public function args(): array
@@ -29,9 +29,9 @@ class DeleteUserMutation extends Mutation
     {
         return GraphQLType::boolean();
     }
-    
+
     public function resolve($root, $args): bool
     {
-        return User::query()->findOrFail($args['id'])->delete();
+        return Category::query()->findOrFail($args['id'])->delete();
     }
 }

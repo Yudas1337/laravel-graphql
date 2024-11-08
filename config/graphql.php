@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
-use App\GraphQL\Mutations\CreateUserMutation;
-use App\GraphQL\Mutations\DeleteUserMutation;
-use App\GraphQL\Mutations\UpdateUserMutation;
+use App\GraphQL\Mutations\Category\CreateCategoryMutation;
+use App\GraphQL\Mutations\Category\DeleteCategoryMutation;
+use App\GraphQL\Mutations\Category\UpdateCategoryMutation;
+use App\GraphQL\Mutations\User\CreateUserMutation;
+use App\GraphQL\Mutations\User\DeleteUserMutation;
+use App\GraphQL\Mutations\User\UpdateUserMutation;
+use App\GraphQL\Queries\CategoryQuery;
 use App\GraphQL\Queries\UserQuery;
+use App\GraphQL\Types\CategoryType;
 use App\GraphQL\Types\UserType;
 
 return [
@@ -81,12 +86,17 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'users' => UserQuery::class
+                'users' => UserQuery::class,
+                'categories' => CategoryQuery::class,
             ],
             'mutation' => [
                 'createUser' => CreateUserMutation::class,
                 'updateUser' => UpdateUserMutation::class,
                 'deleteUser' => DeleteUserMutation::class,
+
+                'createCategory' => CreateCategoryMutation::class,
+                'updateCategory' => UpdateCategoryMutation::class,
+                'deleteCategory' => DeleteCategoryMutation::class,
             ],
             // The types only available in this schema
             'types' => [
@@ -114,6 +124,7 @@ return [
     //
     'types' => [
         'User' => UserType::class,
+        'Category' => CategoryType::class,
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,
