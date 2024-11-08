@@ -5,12 +5,17 @@ declare(strict_types=1);
 use App\GraphQL\Mutations\Category\CreateCategoryMutation;
 use App\GraphQL\Mutations\Category\DeleteCategoryMutation;
 use App\GraphQL\Mutations\Category\UpdateCategoryMutation;
+use App\GraphQL\Mutations\Post\CreatePostMutation;
+use App\GraphQL\Mutations\Post\DeletePostMutation;
+use App\GraphQL\Mutations\Post\UpdatePostMutation;
 use App\GraphQL\Mutations\User\CreateUserMutation;
 use App\GraphQL\Mutations\User\DeleteUserMutation;
 use App\GraphQL\Mutations\User\UpdateUserMutation;
 use App\GraphQL\Queries\CategoryQuery;
+use App\GraphQL\Queries\PostQuery;
 use App\GraphQL\Queries\UserQuery;
 use App\GraphQL\Types\CategoryType;
+use App\GraphQL\Types\PostType;
 use App\GraphQL\Types\UserType;
 
 return [
@@ -88,6 +93,7 @@ return [
             'query' => [
                 'users' => UserQuery::class,
                 'categories' => CategoryQuery::class,
+                'posts' => PostQuery::class,
             ],
             'mutation' => [
                 'createUser' => CreateUserMutation::class,
@@ -97,6 +103,10 @@ return [
                 'createCategory' => CreateCategoryMutation::class,
                 'updateCategory' => UpdateCategoryMutation::class,
                 'deleteCategory' => DeleteCategoryMutation::class,
+
+                'createPost' => CreatePostMutation::class,
+                'updatePost' => UpdatePostMutation::class,
+                'deletePost' => DeletePostMutation::class,
             ],
             // The types only available in this schema
             'types' => [
@@ -125,6 +135,7 @@ return [
     'types' => [
         'User' => UserType::class,
         'Category' => CategoryType::class,
+        'Post' => PostType::class,
         // ExampleType::class,
         // ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,

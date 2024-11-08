@@ -37,20 +37,31 @@ class CategoryQuery extends Query
                 'name' => 'description',
                 'type' => Type::string(),
                 'description' => 'The description of the category',
-            ],
+            ]
         ];
     }
 
     public function resolve($root, $args)
     {
         if (isset($args['id'])) {
-            return Category::query()->where('id', $args['id'])->get();
+            return Category::query()
+                ->where('id', $args['id'])
+                ->withCount('posts')
+                ->with('posts')
+                ->get();
         }
 
         if (isset($args['name'])) {
-            return Category::query()->where('name', $args['name'])->get();
+            return Category::query()
+                ->where('name', $args['name'])
+                ->withCount('posts')
+                ->with('posts')
+                ->get();
         }
 
-        return Category::all();
+        return Category::query()
+            ->withCount('posts')
+            ->with('posts')
+            ->get();
     }
 }

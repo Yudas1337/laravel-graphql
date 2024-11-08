@@ -40,7 +40,7 @@ class UpdateCategoryMutation extends Mutation
         return GraphQL::type('Category');
     }
 
-    public function resolve($root, $args): object
+    public function resolve($root, $args): bool
     {
         $find = Category::query()->findOrFail($args['id']);
 

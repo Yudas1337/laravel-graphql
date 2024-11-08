@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations\User;
 
 use App\Models\User;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Database\QueryException;
 use Rebing\GraphQL\Support\Mutation;
 
 class DeleteUserMutation extends Mutation
@@ -31,6 +32,14 @@ class DeleteUserMutation extends Mutation
 
     public function resolve($root, $args): bool
     {
-        return User::query()->findOrFail($args['id'])->delete();
+        try {
+            return User::query()->findOrFail($args['id'])->delete();
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1451) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

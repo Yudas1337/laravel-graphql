@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Category;
 use App\Models\Category;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\Type as GraphQLType;
+use Illuminate\Database\QueryException;
 use Rebing\GraphQL\Support\Mutation;
 
 class DeleteCategoryMutation extends Mutation
@@ -32,6 +33,15 @@ class DeleteCategoryMutation extends Mutation
 
     public function resolve($root, $args): bool
     {
-        return Category::query()->findOrFail($args['id'])->delete();
+        try {
+            return Category::query()->findOrFail($args['id'])->delete();
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1451) {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 }
